@@ -5,7 +5,8 @@ OUT = main
 all: build
 
 build: clear
+	mkdir bin
 	$(COMPILER) $(STD) src/main.cpp src/bmp.cpp -o bin/$(OUT)
 
 clear:
-	rm -f bin/*
+	rm -rf bin
