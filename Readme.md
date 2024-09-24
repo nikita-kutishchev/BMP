@@ -1,4 +1,4 @@
 ```console
 make
-bin/main $(IMAGE_PATH)
+bin/main path/to/image.bmp
 ```
