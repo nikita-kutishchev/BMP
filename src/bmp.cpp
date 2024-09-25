@@ -9,18 +9,17 @@ const std::byte BLACK{0x0};
 const char cWhite = 'W';
 const char cBLACK = ' ';
 
-BMPFile::BMPFile() { data = NULL; }
+BMPFile::BMPFile() : bmph{}, dibh{} { data = NULL; }
 
 BMPFile::BMPFile(const std::string& file_name) : BMPFile() { load(file_name); }
 
 void BMPFile::load(const std::string& file_name) {
     if (data) delete[] data;
 
-    std::ifstream fin;
-    fin.open(file_name, std::ios::binary);
+    std::ifstream fin(file_name, std::ios::binary);
     if (!fin.is_open()) {
         std::cout << std::format("Can't open {}", file_name) << std::endl;
-        exit(0);
+        std::exit(0);
     }
 
     fin.read(reinterpret_cast<char*>(&bmph), sizeof(BMPHeader));
@@ -28,7 +27,7 @@ void BMPFile::load(const std::string& file_name) {
 
     if (dibh.bits_per_pixel != 24 && dibh.bits_per_pixel != 32) {
         std::cout << "Can't work with non 24 or 32 bit image" << std::endl;
-        exit(0);
+        std::exit(0);
     }
 
     data = new std::byte[dibh.data_size];

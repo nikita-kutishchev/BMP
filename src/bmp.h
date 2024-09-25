@@ -33,7 +33,7 @@ class BMPFile {
 
    public:
     BMPFile();
-    BMPFile(const std::string& file_name);
+    explicit BMPFile(const std::string& file_name);
     void load(const std::string& file_name);
     void displayBMP() const;
     ~BMPFile();
