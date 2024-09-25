@@ -6,7 +6,7 @@
 
 int main(int argc, const char* argv[]) {
     if (argc < 2) {
-        std::cout << "no file entered" << std::endl;
+        std::cout << "no file is entered" << std::endl;
         return 1;
     }
 

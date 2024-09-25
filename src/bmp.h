@@ -29,12 +29,12 @@ class BMPFile {
     BMPHeader bmph;
     DIBHeader dibh;
     std::byte* data;
-    std::byte* convertData();
+    std::byte* convertData() const;
 
    public:
     BMPFile();
     BMPFile(const std::string& file_name);
     void load(const std::string& file_name);
-    void displayBMP();
+    void displayBMP() const;
     ~BMPFile();
 };

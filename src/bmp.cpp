@@ -7,7 +7,7 @@
 const std::byte BLACK{0x0};
 
 const char cWhite = 'W';
-const char cBLACK = '0';
+const char cBLACK = ' ';
 
 BMPFile::BMPFile() { data = NULL; }
 
@@ -41,7 +41,7 @@ BMPFile::~BMPFile() {
 }
 
 // Converts (b, g, r) -> (r, g, b) and inverts rows for 24 or 32 bits images
-std::byte* BMPFile::convertData() {
+std::byte* BMPFile::convertData() const {
     unsigned int _bytes_per_pixel = dibh.bits_per_pixel >> 3;
     unsigned int _row_size = _bytes_per_pixel * dibh.width;
     unsigned int _size = _row_size * dibh.height;
@@ -80,17 +80,17 @@ std::byte* BMPFile::convertData() {
     return _data;
 }
 
-void BMPFile::displayBMP() {
+void BMPFile::displayBMP() const {
     std::byte* _data = convertData();
     unsigned int bytes_per_pixel = dibh.bits_per_pixel / 8;
     unsigned int size = dibh.width * dibh.height * bytes_per_pixel;
     for (size_t i = 0; i < size; i += bytes_per_pixel) {
-        if (i % (dibh.width * bytes_per_pixel) == 0 && i != 0) printf("\n");
+        if (i % (dibh.width * bytes_per_pixel) == 0 && i != 0) std::cout << std::endl;
 
         if (_data[i] == BLACK)
-            printf("%c ", cBLACK);
+            std::cout << std::format("{} ", cBLACK);
         else
-            printf("%c ", cWhite);
+            std::cout << std::format("{} ", cWhite);
     }
     delete[] _data;
 }
