@@ -14,6 +14,8 @@ BMPFile::BMPFile() { data = NULL; }
 BMPFile::BMPFile(const std::string& file_name) : BMPFile() { load(file_name); }
 
 void BMPFile::load(const std::string& file_name) {
+    if (data) delete[] data;
+
     std::ifstream fin;
     fin.open(file_name, std::ios::binary);
     if (!fin.is_open()) {
@@ -21,8 +23,8 @@ void BMPFile::load(const std::string& file_name) {
         exit(0);
     }
 
-    fin.read((char*)&bmph, sizeof(BMPHeader));
-    fin.read((char*)&dibh, sizeof(DIBHeader));
+    fin.read(reinterpret_cast<char*>(&bmph), sizeof(BMPHeader));
+    fin.read(reinterpret_cast<char*>(&dibh), sizeof(DIBHeader));
 
     if (dibh.bits_per_pixel != 24 && dibh.bits_per_pixel != 32) {
         std::cout << "Can't work with non 24 or 32 bit image" << std::endl;
