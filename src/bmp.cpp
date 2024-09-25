@@ -33,7 +33,7 @@ void BMPFile::load(const std::string& file_name) {
 
     data = new std::byte[dibh.data_size];
     fin.seekg(bmph.data_offset, fin.beg);
-    fin.read((char*)data, dibh.data_size);
+    fin.read(reinterpret_cast<char*>(data), dibh.data_size);
 
     fin.close();
 }
