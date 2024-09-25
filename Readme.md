@@ -1,4 +1,4 @@
 ```console
-$make
-$bin/main path/to/image.bmp
+make
+bin/main path/to/image.bmp
 ```
